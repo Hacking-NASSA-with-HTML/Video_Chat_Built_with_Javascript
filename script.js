@@ -7,6 +7,14 @@ let uid = String(Math.floor(Math.random() * 1000));
 let client;
 let channel;
 
+let queryString = window.location.search
+let urlParams = new URLSearchParams(queryString)
+let roomId = urlParams.get('room')
+
+if (!roomId) {
+    window.location = 'start.html'
+}
+
 let localStream;
 let remoteStream;
 let peerConnection;
@@ -24,7 +32,7 @@ let init = async () => {
     await client.login({ uid, token })
 
     //index.html?room=1234
-    channel = client.createChannel('main')
+    channel = client.createChannel(roomId)
     await channel.join()
 
     channel.on('MemberJoined', handleUserJoined)
