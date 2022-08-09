@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: rgb(99, 180, 231, .6);
+    color: #fff;
+}
+
+#form-container {
+    width: 90vw;
+    max-width: 600px;
+    border-radius: 10px;
+    background-color: rgba(19, 74, 202, 0.7);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+#form__container__header {
+    border-radius: 10px 10px 0 0;
+    padding: 30px;
+    text-align: center;
+    background-color: rgba(22, 8, 67, 0.9);
+    margin: 0;
+    font-size: 18px;
+    line-height: 0;
+}
+
+#form__content__wrapper {
+    padding: 20px;
+}
+
+input {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    color: #fff;
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-radius: 5px;
+    padding: 16px 20px;
+    background-color: rgba(22, 8, 67, 0.9);
+    margin-top: 32px;
+}
+
+#roomIdInput {
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 5px;
+    font-size: 25px;
+}
+
+#joinRoomInput {
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+}
+
+/* input[type='submit'] {
+    background-color: rgba(22, 8, 67, 0.9);
+} */
+
+
+@media screen and (max-width: 600px) {
+
+    #roomIdInput {
+        letter-spacing: 3px;
+        font-weight: 600;
+        font-size: 20px;
+    }
+
+
+}

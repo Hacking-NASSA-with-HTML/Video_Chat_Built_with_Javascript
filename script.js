@@ -27,6 +27,14 @@ const servers = {
     ]
 }
 
+let constraints = {
+    video: {
+        width: { min: 640, ideal: 1920, max: 2560 },
+        height: { min: 480, ideal: 1080, max: 1440 }
+    },
+    audio: true
+}
+
 let init = async () => {
     client = await AgoraRTM.createInstance(APP_ID)
     await client.login({ uid, token })
@@ -40,13 +48,14 @@ let init = async () => {
 
     client.on('MessageFromPeer', handleMessageFromPeer)
 
-    localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+    localStream = await navigator.mediaDevices.getUserMedia(constraints)
     document.getElementById('user-1').srcObject = localStream
 }
 
 
 let handleUserLeft = (MemberId) => {
     document.getElementById('user-2').style.display = 'none'
+    document.getElementById('user-1').classList.remove('smallFrame')
 }
 
 let handleMessageFromPeer = async (message, MemberId) => {
@@ -82,6 +91,8 @@ let createPeerConnection = async (MemberId) => {
     remoteStream = new MediaStream()
     document.getElementById('user-2').srcObject = remoteStream
     document.getElementById('user-2').style.display = 'block'
+
+    document.getElementById('user-1').classList.add('smallFrame')
 
     if (!localStream) {
         localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
@@ -139,6 +150,66 @@ let leaveChannel = async () => {
     await client.logout()
 }
 
+document.getElementById('cameraBtn').style.backgroundColor = 'rgb(255, 80,80)'
+document.getElementById('cameraBtn').addEventListener('mouseenter', () => {
+    document.getElementById('cameraBtn').style.backgroundColor = 'rgb(234, 12, 12)'
+})
+document.getElementById('cameraBtn').addEventListener('mouseleave', () => {
+    if (toggleCamera) {
+        document.getElementById('cameraBtn').style.backgroundColor = 'rgb(255, 80,80)'
+    }
+})
+
+let toggleCamera = async () => {
+    let videoTrack = localStream.getTracks().find(track => track.kind === 'video')
+
+    if (videoTrack.enabled) {
+        videoTrack.enabled = false
+        document.getElementById('cameraBtn').style.backgroundColor = 'rgb(9, 13, 144, 0.9)'
+        document.getElementById('cameraBtn').addEventListener('mouseleave', () => {
+            document.getElementById('cameraBtn').style.backgroundColor = 'rgb(9, 13, 144, 0.9)'
+        })
+    } else {
+        videoTrack.enabled = true
+        document.getElementById('cameraBtn').style.backgroundColor = 'rgb(255, 80,80)'
+        document.getElementById('cameraBtn').addEventListener('mouseleave', () => {
+            document.getElementById('cameraBtn').style.backgroundColor = 'rgb(255, 80,80)'
+        })
+    }
+}
+
+document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(255, 80,80)'
+document.getElementById('microphoneBtn').addEventListener('mouseenter', () => {
+    document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(234, 12, 12)'
+})
+document.getElementById('microphoneBtn').addEventListener('mouseleave', () => {
+    if (toggleMicrophone) {
+        document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(255, 80,80)'
+    }
+})
+
+let toggleMicrophone = async () => {
+    let audioTrack = localStream.getTracks().find(track => track.kind === 'audio')
+
+    if (audioTrack.enabled) {
+        audioTrack.enabled = false
+        document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(9, 13, 144, 0.9)'
+        document.getElementById('microphoneBtn').addEventListener('mouseleave', () => {
+            document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(9, 13, 144, 0.9)'
+        })
+    } else {
+        audioTrack.enabled = true
+        document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(255, 80, 80)'
+        document.getElementById('microphoneBtn').addEventListener('mouseleave', () => {
+            document.getElementById('microphoneBtn').style.backgroundColor = 'rgb(255, 80, 80)'
+        })
+    }
+}
+
+
 window.addEventListener('beforeunload', leaveChannel)
+
+document.getElementById('cameraBtn').addEventListener('click', toggleCamera)
+document.getElementById('microphoneBtn').addEventListener('click', toggleMicrophone)
 
 init()

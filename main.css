@@ -1,7 +1,14 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 #videos {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2em;
+    grid-template-columns: 1fr;
+    height: 100vh;
+    overflow: hidden;
 }
 
 /* .video-player {
@@ -13,11 +20,87 @@
 } */
 
 .video-player {
-    background-color: black;
+    background-color: rgba(9, 13, 144, 0.9);
     width: 100%;
-    height: 300px;
+    height: 100%;
+    object-fit: cover;
 }
 
 #user-2 {
     display: none;
+}
+
+.smallFrame {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    height: 170px;
+    width: 300px;
+    border-radius: 5px;
+    border: 2px solid rgb(10, 3, 106, .1);
+    box-shadow: 4px 4px 15px -1px rgb(0, 0, 0, .17);
+    z-index: 100;
+}
+
+#controls {
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1.5em;
+}
+
+.control-container {
+    background-color: rgba(9, 13, 144, 0.9);
+    padding: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.control-container:hover {
+    /* background-color: rgba(251, 11, 83, 0.9); */
+    background-color: rgb(234, 12, 12);
+    transform: scale(1.1);
+}
+
+.control-container img {
+    height: 30px;
+    width: 30px;
+}
+
+#leaveBtn {
+    background-color: rgba(251, 11, 83, 0.9);
+}
+
+#leaveBtn:hover {
+    background-color: rgb(234, 12, 12);
+}
+
+
+
+
+
+@media screen and (max-width: 600px) {
+    .smallFrame {
+        height: 80px;
+        width: 128px;
+    }
+
+    .control-container {
+        padding: 7px;
+    }
+
+    .control-container img {
+        height: 20px;
+        width: 20px;
+    }
+
+
+
+
 }

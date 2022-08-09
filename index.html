@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vide Chat</title>
+    <title>Video Chat</title>
     <link rel="apple-touch-icon" sizes="180x180"
         href="https://hacking-nassa-with-html.github.io/The-functioning-of-JS-buttons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32"
@@ -21,6 +21,19 @@
     <div id="videos">
         <video class="video-player" id="user-1" autoplay playsinline></video>
         <video class="video-player" id="user-2" autoplay playsinline></video>
+    </div>
+    <div id="controls">
+        <div class="control-container" id="cameraBtn">
+            <img src="./icons/camera.png" alt="camera image" />
+        </div>
+        <div class="control-container" id="microphoneBtn">
+            <img src="./icons/mic.png" alt="microphone image" />
+        </div>
+        <a href="./start.html">
+            <div class="control-container" id="leaveBtn">
+                <img src="./icons/phone.png" alt="phone image" />
+            </div>
+        </a>
     </div>
     <script src="./agora-rtm-sdk-1.5.0.js"></script>
     <script src="./script.js"></script>
